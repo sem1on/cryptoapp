@@ -16,7 +16,7 @@ import { MoneyCollectOutlined,
          ThunderboltOutlined } from '@ant-design/icons';
 
 import { useGetCryptoDetailsQuery, useGetCryptoHistoryQuery } from '../services/cryptoApi';
-import { LineChart } from './index';
+import { LineChart, Loader } from './index';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -32,16 +32,17 @@ const CryptoDetails = () => {
 
     const cryptoDetails = data?.data?.coin;
 
-    if(isFetching) return 'Loading...'
+    if(isFetching) return <Loader/>
 
     const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
 
     const stats = [
-        { title: 'Price to USD', value: `$ ${cryptoDetails?.price && millify(cryptoDetails?.price)}`, icon: <DollarCircleOutlined /> },
+        { title: 'Symbol', value: `${cryptoDetails?.symbol}`, icon: <TrophyOutlined /> },
+        { title: 'Price to USD', value: `$ ${cryptoDetails?.price }`, icon: <DollarCircleOutlined /> },
         { title: 'Rank', value: cryptoDetails?.rank, icon: <NumberOutlined /> },
         { title: '24h Volume', value: `$ ${cryptoDetails["24hVolume"] && millify(cryptoDetails["24hVolume"])}`, icon: <ThunderboltOutlined /> },
         { title: 'Market Cap', value: `$ ${cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)}`, icon: <DollarCircleOutlined /> },
-        { title: 'All-time-high(daily avg.)', value: `$ ${cryptoDetails?.allTimeHigh?.price && millify(cryptoDetails?.allTimeHigh?.price)}`, icon: <TrophyOutlined /> },
+        
     ];
 
     const genericStats = [
@@ -72,7 +73,7 @@ const CryptoDetails = () => {
                         <p>An overview showing the statistics of {cryptoDetails.name}, such as the base and quote currency, the rank, and trading volume.</p>
                     </Col>
                     {stats.map(({ icon, title, value }) => (
-                        <Col className="coin-stats">
+                        <Col className="coin-stats" key={title}>
                             <Col className="coin-stats-name">
                                 <Text>{icon}</Text>
                                 <Text>{title}</Text>
@@ -87,7 +88,7 @@ const CryptoDetails = () => {
                         <p>An overview showing the statistics of {cryptoDetails.name}, such as the base and quote currency, the rank, and trading volume.</p>
                     </Col>
                     {genericStats.map(({ icon, title, value }) => (
-                        <Col className="coin-stats">
+                        <Col className="coin-stats" key={title}>
                             <Col className="coin-stats-name">
                                 <Text>{icon}</Text>
                                 <Text>{title}</Text>

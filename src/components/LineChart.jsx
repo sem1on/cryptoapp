@@ -9,13 +9,13 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
     const coinPrice = [];
     const coinTimestamp = [];
 
-    // for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    //     coinPrice.push(coinHistory?.data?.history[i].price);
-    // }
+    for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+        coinPrice.push(coinHistory?.data?.history[i].price);
+    }
     
-    // for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    //     coinTimestamp.push(new Date(coinHistory?.data?.history[i].timestamp).toLocaleDateString());
-    // }
+    for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+        coinTimestamp.push(new Date(coinHistory?.data?.history[i].timestamp).toLocaleDateString());
+    }
 
     const data = {
         labels: coinTimestamp,
@@ -30,7 +30,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
         ]
     }
 
-    const option = {
+    const options = {
         scales: {
             yAxes: [{
                 ticks: {
@@ -49,7 +49,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
                     <Title level={5} className='current-price'>Current {coinName} Price: $ {currentPrice}</Title>
                 </Col>
             </Row>
-            {/* <Line data={data} options={option}/> */}
+            <Line data={data} options={options}/>
         </>
     );
 };
