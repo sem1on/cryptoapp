@@ -41,7 +41,7 @@ const News = ({ simplified }) => {
                         <a href={news.url} target='_blank' rel='noreferrer'>
                             <div className="news-image-container">
                                 <Title className='news-title' level={4}>{news.name}</Title>
-                                <img src={news?.image?.thumbnail?.contentUrl || demoImage} alt="news"/>
+                                <img style={{ maxWight: '200px', maxHeight: '100px'}} src={news?.image?.thumbnail?.contentUrl || demoImage} alt="news"/>
                             </div>
                             <p>
                                 {news.description > 100
